@@ -7,6 +7,7 @@ Future<void> main() async {
     test('formats a title', () => expectEqual('HELLO', 'hello'.toUpperCase())),
     test('finds an item', () => expectTrue(['puffin', 'tern'].contains('puffin'))),
     test('keeps a collection within a size range', () => expectLengthBetween(['puffin', 'tern'], 1, 3)),
+    test('checks nullable values', () { expectNull(null); expectNotNull('puffin'); }),
   ]);
   exitCode = status;
 }

@@ -147,6 +147,16 @@ void expectFalse(bool actual, [String? message]) {
   if (actual) _fail(message ?? 'Expected false', expected: false, actual: actual, hasValues: true);
 }
 
+/// Fail unless [actual] is null.
+void expectNull(Object? actual, [String? message]) {
+  if (actual != null) _fail(message ?? 'Expected null', expected: null, actual: actual, hasValues: true);
+}
+
+/// Fail unless [actual] is non-null.
+void expectNotNull(Object? actual, [String? message]) {
+  if (actual == null) _fail(message ?? 'Expected a non-null value', expected: 'non-null', actual: null, hasValues: true);
+}
+
 /// Fail unless [item] is in an iterable, map key set, string, or array-like list.
 void expectContains(Object? container, Object? item, [String? message]) {
   final contains = _containsValue(container, item);
