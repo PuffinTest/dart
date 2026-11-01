@@ -29,6 +29,6 @@ Future<void> main() async {
 
 Each case runs independently. Reports include the case, failed expectation, expected and actual values when available, and the source file and line when the Dart runtime provides them. `runTests` returns `1` when a case fails or no cases match.
 
-The checks are `expectEqual`, `expectNotEqual`, `expectClose`, `expectTrue`, `expectFalse`, `expectContains`, `expectThrows<T>`, and `fail`. `runTests` accepts optional `filter`, `tag`, `failFast`, `beforeEach`, and `afterEach` arguments.
+The checks are `expectEqual`, `expectNotEqual`, `expectClose`, `expectTrue`, `expectFalse`, `expectContains`, `expectNotContains`, `expectThrows<T>`, and `fail`. `runTests` accepts optional `filter`, `tag`, `failFast`, `beforeEach`, and `afterEach` arguments.
 
 This package is an initial implementation and has not yet been verified. Equality uses Dart's `==` semantics, so collection values need their own equality implementation to compare by contents.

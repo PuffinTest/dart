@@ -97,16 +97,25 @@ void expectFalse(bool actual, [String? message]) {
 
 /// Fail unless [item] is in an iterable, map key set, string, or array-like list.
 void expectContains(Object? container, Object? item, [String? message]) {
-  final contains = switch (container) {
+  final contains = _containsValue(container, item);
+  if (!contains) {
+    _fail(message ?? 'Item is not present in the container', expected: 'a container containing $item', actual: container, hasValues: true);
+  }
+}
+
+/// Fail if [item] is in an iterable, map key set, or string.
+void expectNotContains(Object? container, Object? item, [String? message]) {
+  if (_containsValue(container, item)) {
+    _fail(message ?? 'Item is unexpectedly present in the container', expected: 'a container not containing $item', actual: container, hasValues: true);
+  }
+}
+
+bool _containsValue(Object? container, Object? item) => switch (container) {
     Iterable values => values.contains(item),
     Map values => values.containsKey(item),
     String value when item is String => value.contains(item),
     _ => throw ArgumentError.value(container, 'container', 'must be an iterable, map, or string'),
   };
-  if (!contains) {
-    _fail(message ?? 'Item is not present in the container', expected: 'a container containing $item', actual: container, hasValues: true);
-  }
-}
 
 /// Require [callback] to throw an object of type [T] and return that object.
 T expectThrows<T extends Object>(void Function() callback, [String? message]) {
