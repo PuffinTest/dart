@@ -99,6 +99,14 @@ void expectClose(num actual, num expected, {double relTol = 1e-9, double absTol 
   }
 }
 
+/// Fail unless [actual] is between [minimum] and [maximum], inclusive.
+void expectBetween(num actual, num minimum, num maximum, [String? message]) {
+  if (minimum > maximum) throw ArgumentError('minimum must be less than or equal to maximum');
+  if (!(actual >= minimum && actual <= maximum)) {
+    _fail(message ?? 'Value is outside the expected range', expected: 'between $minimum and $maximum, inclusive', actual: actual, hasValues: true);
+  }
+}
+
 /// Fail unless [actual] is true.
 void expectTrue(bool actual, [String? message]) {
   if (!actual) _fail(message ?? 'Expected true', expected: true, actual: actual, hasValues: true);

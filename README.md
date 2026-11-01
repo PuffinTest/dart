@@ -21,7 +21,10 @@ import 'package:puffintest/puffintest.dart';
 
 Future<void> main() async {
   final cases = [
-    test('greets the user', () => expectEqual('HELLO', 'hello'.toUpperCase())),
+    test('greets the user', () {
+      expectEqual('HELLO', 'hello'.toUpperCase());
+      expectBetween(18, 13, 19);
+    }),
   ];
   exitCode = await runTests(cases);
 }
@@ -29,6 +32,6 @@ Future<void> main() async {
 
 Each case runs independently. Reports include the case, failed expectation, expected and actual values when available, and the source file and line when the Dart runtime provides them. `runTests` returns `1` when a case fails or no cases match.
 
-The checks are `expectEqual`, `expectNotEqual`, `expectClose`, `expectTrue`, `expectFalse`, `expectStartsWith`, `expectEndsWith`, `expectContains`, `expectNotContains`, `expectThrows<T>`, and `fail`. Prefix and suffix checks use Dart's case-sensitive `String.startsWith` and `String.endsWith` behavior. `runTests` accepts optional `filter`, `tag`, `failFast`, `beforeEach`, and `afterEach` arguments.
+The checks are `expectEqual`, `expectNotEqual`, `expectClose`, `expectBetween`, `expectTrue`, `expectFalse`, `expectStartsWith`, `expectEndsWith`, `expectContains`, `expectNotContains`, `expectThrows<T>`, and `fail`. `expectBetween` uses inclusive numeric bounds. Prefix and suffix checks use Dart's case-sensitive `String.startsWith` and `String.endsWith` behavior. `runTests` accepts optional `filter`, `tag`, `failFast`, `beforeEach`, and `afterEach` arguments.
 
 This package is an initial implementation and has not yet been verified. Equality uses Dart's `==` semantics, so collection values need their own equality implementation to compare by contents.
