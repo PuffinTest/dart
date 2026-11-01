@@ -1,6 +1,7 @@
 library puffintest;
 
 import 'dart:async';
+import 'dart:math' as math;
 
 typedef TestBody = FutureOr<void> Function();
 
@@ -67,6 +68,18 @@ void expectEqual(Object? actual, Object? expected, [String? message]) {
 void expectNotEqual(Object? actual, Object? unexpected, [String? message]) {
   if (actual == unexpected) {
     _fail(message ?? 'Values are unexpectedly equal', expected: 'different from $unexpected', actual: actual, hasValues: true);
+  }
+}
+
+/// Fail unless two numbers are close under relative and absolute tolerances.
+void expectClose(num actual, num expected, {double relTol = 1e-9, double absTol = 0, String? message}) {
+  if (!relTol.isFinite || !absTol.isFinite || relTol < 0 || absTol < 0) {
+    throw ArgumentError('tolerances must be finite and nonnegative');
+  }
+  final close = actual == expected || (actual.isFinite && expected.isFinite &&
+      (actual - expected).abs() <= math.max(relTol * math.max(actual.abs(), expected.abs()), absTol));
+  if (!close) {
+    _fail(message ?? 'Values are not close (relTol=$relTol, absTol=$absTol)', expected: expected, actual: actual, hasValues: true);
   }
 }
 
