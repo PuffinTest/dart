@@ -85,6 +85,20 @@ void expectEndsWith(String actual, String suffix, [String? message]) {
   }
 }
 
+/// Fail if [actual] starts with [prefix].
+void expectNotStartsWith(String actual, String prefix, [String? message]) {
+  if (actual.startsWith(prefix)) {
+    _fail(message ?? 'Text unexpectedly starts with the prefix', expected: 'text not starting with "$prefix"', actual: actual, hasValues: true);
+  }
+}
+
+/// Fail if [actual] ends with [suffix].
+void expectNotEndsWith(String actual, String suffix, [String? message]) {
+  if (actual.endsWith(suffix)) {
+    _fail(message ?? 'Text unexpectedly ends with the suffix', expected: 'text not ending with "$suffix"', actual: actual, hasValues: true);
+  }
+}
+
 /// Fail unless two numbers are close under relative and absolute tolerances.
 void expectClose(num actual, num expected, {double relTol = 1e-9, double absTol = 0, String? message}) {
   if (!relTol.isFinite || !absTol.isFinite || relTol < 0 || absTol < 0) {
