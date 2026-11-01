@@ -1,6 +1,6 @@
 # PuffinTest for Dart
 
-PuffinTest is an early Dart package for named test cases and readable expectation failures. It currently provides equality, inequality, truth, and falsehood checks, explicit failure, tags, skips, name and tag filters, async callbacks and hooks, and sequential execution with a `0` or `1` result.
+PuffinTest is an early Dart package for named test cases and readable expectation failures. It currently provides equality, inequality, truth, falsehood, membership, and typed exception checks, explicit failure, tags, skips, name and tag filters, async callbacks and hooks, and sequential execution with a `0` or `1` result.
 
 The package requires Dart SDK 3.3 or newer. It is not published to pub.dev.
 
@@ -28,5 +28,7 @@ Future<void> main() async {
 ```
 
 Each case runs independently. Reports include the case, failed expectation, expected and actual values when available, and the source file and line when the Dart runtime provides them. `runTests` returns `1` when a case fails or no cases match.
+
+The checks are `expectEqual`, `expectNotEqual`, `expectTrue`, `expectFalse`, `expectContains`, `expectThrows<T>`, and `fail`. `runTests` accepts optional `filter`, `tag`, `failFast`, `beforeEach`, and `afterEach` arguments.
 
 This package is an initial implementation and has not yet been verified. Equality uses Dart's `==` semantics, so collection values need their own equality implementation to compare by contents.
