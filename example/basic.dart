@@ -8,6 +8,7 @@ Future<void> main() async {
     test('finds an item', () => expectTrue(['puffin', 'tern'].contains('puffin'))),
     test('keeps a collection within a size range', () => expectLengthBetween(['puffin', 'tern'], 1, 3)),
     test('checks nullable values', () { expectNull(null); expectNotNull('puffin'); }),
+    test('checks an empty collection', () { expectEmpty(<String>[]); expectNotEmpty(['puffin']); }),
   ]);
   exitCode = status;
 }

@@ -104,15 +104,29 @@ void expectLengthBetween(Object? actual, int minimum, int maximum, [String? mess
   if (minimum < 0 || maximum < 0 || minimum > maximum) {
     throw ArgumentError('length bounds must be nonnegative and ordered');
   }
-  final length = switch (actual) {
-    String value => value.length,
-    Iterable values => values.length,
-    Map values => values.length,
-    _ => throw ArgumentError.value(actual, 'actual', 'must be a string, iterable, or map'),
-  };
+  final length = _lengthOf(actual);
   if (length < minimum || length > maximum) {
     _fail(message ?? 'Value length is outside the expected range', expected: 'length between $minimum and $maximum, inclusive', actual: length, hasValues: true);
   }
+}
+
+int _lengthOf(Object? actual) => switch (actual) {
+      String value => value.length,
+      Iterable values => value.length,
+      Map values => values.length,
+      _ => throw ArgumentError.value(actual, 'actual', 'must be a string, iterable, or map'),
+    };
+
+/// Fail unless [actual] has no items or characters.
+void expectEmpty(Object? actual, [String? message]) {
+  final length = _lengthOf(actual);
+  if (length != 0) _fail(message ?? 'Expected an empty value', expected: 0, actual: length, hasValues: true);
+}
+
+/// Fail unless [actual] has at least one item or character.
+void expectNotEmpty(Object? actual, [String? message]) {
+  final length = _lengthOf(actual);
+  if (length == 0) _fail(message ?? 'Expected a non-empty value', expected: 'at least 1 item', actual: length, hasValues: true);
 }
 
 /// Fail unless two numbers are close under relative and absolute tolerances.
