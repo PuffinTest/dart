@@ -99,6 +99,22 @@ void expectNotEndsWith(String actual, String suffix, [String? message]) {
   }
 }
 
+/// Fail unless [actual] has a length in the inclusive [minimum] to [maximum] range.
+void expectLengthBetween(Object? actual, int minimum, int maximum, [String? message]) {
+  if (minimum < 0 || maximum < 0 || minimum > maximum) {
+    throw ArgumentError('length bounds must be nonnegative and ordered');
+  }
+  final length = switch (actual) {
+    String value => value.length,
+    Iterable values => values.length,
+    Map values => values.length,
+    _ => throw ArgumentError.value(actual, 'actual', 'must be a string, iterable, or map'),
+  };
+  if (length < minimum || length > maximum) {
+    _fail(message ?? 'Value length is outside the expected range', expected: 'length between $minimum and $maximum, inclusive', actual: length, hasValues: true);
+  }
+}
+
 /// Fail unless two numbers are close under relative and absolute tolerances.
 void expectClose(num actual, num expected, {double relTol = 1e-9, double absTol = 0, String? message}) {
   if (!relTol.isFinite || !absTol.isFinite || relTol < 0 || absTol < 0) {
