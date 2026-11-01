@@ -1,0 +1,6 @@
+name: puffintest
+description: Small named test cases and readable expectation failures.
+version: 0.1.0
+publish_to: none
+environment:
+  sdk: '>=3.3.0 <4.0.0'
