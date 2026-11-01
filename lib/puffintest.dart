@@ -76,8 +76,10 @@ void expectClose(num actual, num expected, {double relTol = 1e-9, double absTol 
   if (!relTol.isFinite || !absTol.isFinite || relTol < 0 || absTol < 0) {
     throw ArgumentError('tolerances must be finite and nonnegative');
   }
+  final difference = (actual - expected).abs();
+  final scale = math.max(actual.abs(), expected.abs());
   final close = actual == expected || (actual.isFinite && expected.isFinite &&
-      (actual - expected).abs() <= math.max(relTol * math.max(actual.abs(), expected.abs()), absTol));
+      (difference <= absTol || (scale != 0 && difference / scale <= relTol)));
   if (!close) {
     _fail(message ?? 'Values are not close (relTol=$relTol, absTol=$absTol)', expected: expected, actual: actual, hasValues: true);
   }
