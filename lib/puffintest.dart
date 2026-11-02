@@ -224,6 +224,20 @@ void expectErrorMessage(Object error, String substring, [String? message]) {
   }
 }
 
+/// Fail unless [pattern] matches somewhere in [actual].
+void expectMatches(String actual, String pattern, [String? message]) {
+  if (!RegExp(pattern).hasMatch(actual)) {
+    _fail(message ?? 'Text does not match the expected pattern', expected: 'text matching "$pattern"', actual: actual, hasValues: true);
+  }
+}
+
+/// Fail if [pattern] matches anywhere in [actual].
+void expectNotMatches(String actual, String pattern, [String? message]) {
+  if (RegExp(pattern).hasMatch(actual)) {
+    _fail(message ?? 'Text unexpectedly matches the pattern', expected: 'text not matching "$pattern"', actual: actual, hasValues: true);
+  }
+}
+
 /// Explicitly fail the current test case.
 Never fail([String message = 'Explicit failure']) => _fail(message);
 
