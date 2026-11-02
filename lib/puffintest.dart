@@ -186,6 +186,16 @@ void expectNotNaN(num actual, [String? message]) {
   if (actual.isNaN) _fail(message ?? 'Value is unexpectedly NaN', expected: 'not NaN', actual: actual, hasValues: true);
 }
 
+/// Fail unless [actual] is positive or negative infinity.
+void expectInfinite(num actual, [String? message]) {
+  if (!actual.isInfinite) _fail(message ?? 'Value is not infinite', expected: 'positive or negative infinity', actual: actual, hasValues: true);
+}
+
+/// Fail if [actual] is positive or negative infinity.
+void expectNotInfinite(num actual, [String? message]) {
+  if (actual.isInfinite) _fail(message ?? 'Value is unexpectedly infinite', expected: 'not infinity', actual: actual, hasValues: true);
+}
+
 /// Fail unless [actual] is between [minimum] and [maximum], inclusive.
 void expectBetween(num actual, num minimum, num maximum, [String? message]) {
   if (minimum.isNaN || maximum.isNaN || minimum > maximum) {

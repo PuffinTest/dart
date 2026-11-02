@@ -34,6 +34,8 @@ Future<void> main() async {
       expectFinite(3.14);
       expectNaN(double.nan);
       expectNotNaN(3.14);
+      expectInfinite(double.infinity);
+      expectNotInfinite(3.14);
     }),
   ]);
   exitCode = status;
