@@ -31,6 +31,7 @@ Future<void> main() async {
       expectAtMost(3, 3);
       expectNotBetween(4, 1, 3);
       expectNotClose(0.1, 0.9);
+      expectFinite(3.14);
     }),
   ]);
   exitCode = status;
