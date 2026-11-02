@@ -24,6 +24,10 @@ Future<void> main() async {
       expectMatches('order-4821 accepted', r'order-\d+ accepted');
       expectNotMatches('request failed', r'\b2xx\b');
     }),
+    test('checks numeric thresholds', () {
+      expectGreaterThan(5, 3);
+      expectLessThan(2, 3);
+    }),
   ]);
   exitCode = status;
 }
