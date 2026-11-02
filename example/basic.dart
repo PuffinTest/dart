@@ -20,6 +20,10 @@ Future<void> main() async {
       final error = expectThrows<StateError>(() { throw StateError('missing puffin'); });
       expectErrorMessage(error, 'puffin');
     }),
+    test('matches text patterns', () {
+      expectMatches('order-4821 accepted', r'order-\d+ accepted');
+      expectNotMatches('request failed', r'\b2xx\b');
+    }),
   ]);
   exitCode = status;
 }
