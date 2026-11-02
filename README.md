@@ -34,6 +34,6 @@ Each case runs independently. Reports include the case, failed expectation, expe
 
 The checks are `expectEqual`, `expectNotEqual`, `expectClose`, `expectBetween`, `expectLength`, `expectLengthBetween`, `expectTrue`, `expectFalse`, `expectNull`, `expectNotNull`, `expectEmpty`, `expectNotEmpty`, `expectStartsWith`, `expectEndsWith`, `expectNotStartsWith`, `expectNotEndsWith`, `expectContains`, `expectNotContains`, `expectThrows<T>`, `expectErrorMessage`, `expectMatches`, `expectNotMatches`, and `fail`. `expectBetween` uses inclusive numeric bounds. Prefix and suffix checks use Dart's case-sensitive `String.startsWith` and `String.endsWith` behavior. `runTests` accepts optional `filter`, `tag`, `failFast`, `beforeEach`, and `afterEach` arguments.
 
-Length and empty/non-empty checks accept strings, iterables, and maps using Dart's native `length` behavior.
+Length and empty/non-empty checks accept strings, iterables, and maps using Dart's native `length` behavior. Regex checks use Dart `RegExp` and search for a match anywhere in the string.
 
 This package is an initial implementation and has not yet been verified. Equality uses Dart's `==` semantics, so collection values need their own equality implementation to compare by contents.
