@@ -117,6 +117,15 @@ int _lengthOf(Object? actual) => switch (actual) {
       _ => throw ArgumentError.value(actual, 'actual', 'must be a string, iterable, or map'),
     };
 
+/// Fail unless [actual] has exactly [expected] items or characters.
+void expectLength(Object? actual, int expected, [String? message]) {
+  if (expected < 0) throw ArgumentError.value(expected, 'expected', 'must be nonnegative');
+  final length = _lengthOf(actual);
+  if (length != expected) {
+    _fail(message ?? 'Value has an unexpected length', expected: expected, actual: length, hasValues: true);
+  }
+}
+
 /// Fail unless [actual] has no items or characters.
 void expectEmpty(Object? actual, [String? message]) {
   final length = _lengthOf(actual);

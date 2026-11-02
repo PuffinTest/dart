@@ -10,7 +10,10 @@ Future<void> main() async {
       expectContains('puffin test', 'test');
       expectNotContains('puffin test', 'penguin');
     }),
-    test('keeps a collection within a size range', () => expectLengthBetween(['puffin', 'tern'], 1, 3)),
+    test('checks collection sizes', () {
+      expectLength(['puffin', 'tern'], 2);
+      expectLengthBetween(['puffin', 'tern'], 1, 3);
+    }),
     test('checks nullable values', () { expectNull(null); expectNotNull('puffin'); }),
     test('checks an empty collection', () { expectEmpty(<String>[]); expectNotEmpty(['puffin']); }),
     test('checks an error message', () {
