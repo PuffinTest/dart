@@ -154,9 +154,21 @@ void expectClose(num actual, num expected, {double relTol = 1e-9, double absTol 
 
 /// Fail unless [actual] is between [minimum] and [maximum], inclusive.
 void expectBetween(num actual, num minimum, num maximum, [String? message]) {
-  if (minimum > maximum) throw ArgumentError('minimum must be less than or equal to maximum');
+  if (minimum.isNaN || maximum.isNaN || minimum > maximum) {
+    throw ArgumentError('minimum must be less than or equal to maximum');
+  }
   if (!(actual >= minimum && actual <= maximum)) {
     _fail(message ?? 'Value is outside the expected range', expected: 'between $minimum and $maximum, inclusive', actual: actual, hasValues: true);
+  }
+}
+
+/// Fail if [actual] is in the inclusive [minimum] to [maximum] range.
+void expectNotBetween(num actual, num minimum, num maximum, [String? message]) {
+  if (minimum.isNaN || maximum.isNaN || minimum > maximum) {
+    throw ArgumentError('minimum must be less than or equal to maximum');
+  }
+  if (!(actual < minimum || actual > maximum)) {
+    _fail(message ?? 'Value is inside the unexpected range', expected: 'outside [$minimum, $maximum]', actual: actual, hasValues: true);
   }
 }
 
