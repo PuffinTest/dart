@@ -13,6 +13,10 @@ Future<void> main() async {
     test('keeps a collection within a size range', () => expectLengthBetween(['puffin', 'tern'], 1, 3)),
     test('checks nullable values', () { expectNull(null); expectNotNull('puffin'); }),
     test('checks an empty collection', () { expectEmpty(<String>[]); expectNotEmpty(['puffin']); }),
+    test('checks an error message', () {
+      final error = expectThrows<StateError>(() { throw StateError('missing puffin'); });
+      expectErrorMessage(error, 'puffin');
+    }),
   ]);
   exitCode = status;
 }

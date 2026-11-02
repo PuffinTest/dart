@@ -207,6 +207,14 @@ T expectThrows<T extends Object>(void Function() callback, [String? message]) {
   _fail(message ?? 'Expected $T to be thrown', expected: T, actual: didThrow ? thrown : 'no exception', hasValues: true);
 }
 
+/// Fail unless [substring] occurs in [error]'s string representation.
+void expectErrorMessage(Object error, String substring, [String? message]) {
+  final actual = error.toString();
+  if (!actual.contains(substring)) {
+    _fail(message ?? 'Error message does not contain the expected text', expected: 'error message containing "$substring"', actual: actual, hasValues: true);
+  }
+}
+
 /// Explicitly fail the current test case.
 Never fail([String message = 'Explicit failure']) => _fail(message);
 
