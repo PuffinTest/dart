@@ -27,6 +27,8 @@ Future<void> main() async {
     test('checks numeric thresholds', () {
       expectGreaterThan(5, 3);
       expectLessThan(2, 3);
+      expectAtLeast(3, 3);
+      expectAtMost(3, 3);
     }),
   ]);
   exitCode = status;

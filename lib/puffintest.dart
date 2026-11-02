@@ -174,6 +174,20 @@ void expectLessThan(num actual, num threshold, [String? message]) {
   }
 }
 
+/// Fail unless [actual] is greater than or equal to [threshold].
+void expectAtLeast(num actual, num threshold, [String? message]) {
+  if (!(actual >= threshold)) {
+    _fail(message ?? 'Value is below the minimum threshold', expected: 'at least $threshold', actual: actual, hasValues: true);
+  }
+}
+
+/// Fail unless [actual] is less than or equal to [threshold].
+void expectAtMost(num actual, num threshold, [String? message]) {
+  if (!(actual <= threshold)) {
+    _fail(message ?? 'Value is above the maximum threshold', expected: 'at most $threshold', actual: actual, hasValues: true);
+  }
+}
+
 /// Fail unless [actual] is true.
 void expectTrue(bool actual, [String? message]) {
   if (!actual) _fail(message ?? 'Expected true', expected: true, actual: actual, hasValues: true);
