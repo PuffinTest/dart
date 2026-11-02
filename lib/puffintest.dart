@@ -152,6 +152,20 @@ void expectClose(num actual, num expected, {double relTol = 1e-9, double absTol 
   }
 }
 
+/// Fail if two numbers are close under relative or absolute tolerance.
+void expectNotClose(num actual, num expected, {double relTol = 1e-9, double absTol = 0, String? message}) {
+  if (!relTol.isFinite || !absTol.isFinite || relTol < 0 || absTol < 0) {
+    throw ArgumentError('tolerances must be finite and nonnegative');
+  }
+  final difference = (actual - expected).abs();
+  final scale = math.max(actual.abs(), expected.abs());
+  final close = actual == expected || (actual.isFinite && expected.isFinite &&
+      (difference <= absTol || (scale != 0 && difference / scale <= relTol)));
+  if (close) {
+    _fail(message ?? 'Values are unexpectedly close (relTol=$relTol, absTol=$absTol)', expected: 'not close to $expected', actual: actual, hasValues: true);
+  }
+}
+
 /// Fail unless [actual] is between [minimum] and [maximum], inclusive.
 void expectBetween(num actual, num minimum, num maximum, [String? message]) {
   if (minimum.isNaN || maximum.isNaN || minimum > maximum) {
